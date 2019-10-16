@@ -18,9 +18,9 @@
 <main>
 <div class="container">
 <section>
-    <p id="output1">ここに日時が表示されます</p>
-    <p id="output2">ここに日時が表示されます</p>
-    <p id="output3">ここに日時が表示されます</p>
+    <h1>やることリスト</h1>
+    <ul id="list">
+    </ul>
 </section>
 </div><!-- /.container -->
 </main>
@@ -34,9 +34,11 @@
     'use strict';
     
     let todo = ['デザインカンプ作成', 'データ整理', '勉強会申込', '牛乳を買う'];
+    todo.push('歯医者に行く');
     
     for(let item of todo){
-        console.log(item);
+        const li = `<li>${item}</li>`;
+        document.getElementById('list').insertAdjacentHTML('beforeend',li);
     }
 </script>
 </body>
