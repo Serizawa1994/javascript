@@ -1,50 +1,82 @@
 <!doctype html>
 <html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>テンプレート</title>
-<link href="images/favicon.ico" rel="shortcut icon">
-<link href="https://fonts.googleapis.com/css?family=M+PLUS+1p:400,500" rel="stylesheet">
-<link href="sample.css" rel="stylesheet">
-<style>
-    span{color: #FF0000;}
-</style>
-</head>
-<body>
-<header>
-<div class="container">
-<h1>小数第◯位で切り捨てる</h1>
-<h2>Mathオブジェクト</h2>
-</div><!-- /.container -->
-</header>
-<main>
-<div class="container">
-<section>
-    <p>円周率は、<span id="pi"></span>　です。</p>
-    <p>普通に切り捨てると、<span id="floor"></span>　です。</p>
-    <p>小数第２位で切り捨てると、<span id="output"></span>　です。</p>
-</section>
-</div><!-- /.container -->
-</main>
-<footer>
-<div class="container">
-<p>JavaScript Samples</p>
-</div><!-- /.container -->
-</footer>
-<script>
-    
-    'use strict';
-    
-    document.getElementById('pi').textContent = Math.PI;
-    document.getElementById('floor').textContent = Math.floor(Math.PI);
-    
-    function point(num,digit){
-        const mover = 10 ** digit;
-        return Math.floor(num * mover) / mover;
-    }
-    
-    document.getElementById('output').textContent = point(Math.PI, 2);
-</script>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>5-01_countdown</title>
+        <link href="images/favicon.ico" rel="shortcut icon">
+        <link href="https://fonts.googleapis.com/css?family=M+PLUS+1p:400,500" rel="stylesheet">
+        <link href="sample.css" rel="stylesheet">
+        <style>
+            h2 span {
+                font-size: 1rem;
+            }
+            .timer {
+                font-weight: bold;
+                font-size: 24px;
+                text-align: center;
+            }
+            .timer span {
+                font-size: 72px;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <h1>カウントダウンタイマー</h1>
+                <h2>応用例：表示の仕方を変えてみよう</h2>
+            </div><!-- /.container -->
+        </header>
+        
+        <main>
+            <div class="container">
+            <section>
+                <h2><span>知ってました？</span><br>
+                2025年大阪万博開催まで</h2>
+                <p class="timer">あと<span id="day"></span>日<span id="hour"></span>時間<span id="min"></span>分<span id="sec"></span>秒</p>
+            </section>
+            </div><!-- /.container -->
+        </main>
+        
+        <footer>
+            <div class="container">
+                <p>JavaScript Samples</p>
+            </div><!-- /.container -->
+        </footer>
+        
+        <script>
+            'use strict';
+            
+            function countdown(due) {
+                const now = new Date();
+            
+                const rest = due.getTime() - now.getTime();
+                const sec = Math.floor(rest / 1000) % 60;
+                const min = Math.floor(rest / 1000 / 60) % 60;
+                const hours = Math.floor(rest / 1000 / 60 / 60) % 24;
+                const days = Math.floor(rest / 1000 / 60 / 60 / 24);
+                const count = [days, hours, min, sec];
+            
+                return count;
+            }
+            
+            const goal = new Date(2025, 4, 3);
+            
+            function recalc() {
+                const counter = countdown(goal);
+                document.getElementById('day').textContent = counter[0];
+                document.getElementById('hour').textContent = counter[1];
+                document.getElementById('min').textContent = String(counter[2]).padStart(2, '0');
+                document.getElementById('sec').textContent = String(counter[3]).padStart(2, '0');
+                refresh();  
+            }
+            
+            function refresh() {
+                setTimeout(recalc, 1000);
+            }
+            
+            recalc();
+        </script>
+    </body>
 </html>
