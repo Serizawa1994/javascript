@@ -11,16 +11,14 @@
 <body>
 <header>
 <div class="container">
-<h1>項目をリスト表示する</h1>
-<h2>項目をHTMLに出力</h2>
+<h1>アイテムの価格と在庫を表示する</h1>
+<h2>HTMLに出力する</h2>
 </div><!-- /.container -->
 </header>
 <main>
 <div class="container">
 <section>
-    <h1>やることリスト</h1>
-    <ul id="list">
-    </ul>
+    
 </section>
 </div><!-- /.container -->
 </main>
@@ -33,13 +31,12 @@
     
     'use strict';
     
-    let todo = ['デザインカンプ作成', 'データ整理', '勉強会申込', '牛乳を買う'];
-    todo.push('歯医者に行く');
-    
-    for(let item of todo){
-        const li = `<li>${item}</li>`;
-        document.getElementById('list').insertAdjacentHTML('beforeend',li);
-    }
+    let jsbook = {title: 'Javascript入門', price: 2500, stock: 3};
+    console.log(jsbook);
+    console.log(jsbook.title);
+    console.log(jsbook['price']);
+    jsbook.stock = 10;
+    console.log(jsbook['stock']);
 </script>
 </body>
 </html>
