@@ -11,14 +11,16 @@
 <body>
 <header>
 <div class="container">
-<h1>タイトル</h1>
-<h2>サブタイトル</h2>
+<h1>FizzBuzz</h1>
+<h2>算術演算子</h2>
 </div><!-- /.container -->
 </header>
 <main>
 <div class="container">
 <section>
-    <p id="choice">ここに日時が表示されます</p>
+    <p id="output1">ここに日時が表示されます</p>
+    <p id="output2">ここに日時が表示されます</p>
+    <p id="output3">ここに日時が表示されます</p>
 </section>
 </div><!-- /.container -->
 </main>
@@ -31,14 +33,23 @@
     
     'use strict';
     
-    function total(price){
-        const tax = 0.1;
-        return price + price * tax;
+    let i = 1;
+    while(i <= 30){
+        console.log(fizzbuzz(i));
+        i += 1;
     }
     
-    console.log('コーヒーメーカーの値段は' + total(8000) + '円（税込）です');
-    
-    document.getElementById('choice').textContent = new Date();
+    function fizzbuzz(num){
+        if(num % 3 === 0 && num % 5 === 0){
+            return 'fizzbuzz'
+        }else if(num % 3 === 0){
+            return 'fizz'
+        }else if(num % 5 === 0){
+            return 'buzz'
+        }else{
+            return num;
+        }
+    }
 </script>
 </body>
 </html>
