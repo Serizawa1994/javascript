@@ -11,19 +11,14 @@
 <body>
 <header>
 <div class="container">
-<h1>フォームの入力内容を取得する</h1>
-<h2>入力内容を読み取って出力</h2>
+<h1>わかりやすく日時を表示する</h1>
+<h2>Dateオブジェクト</h2>
 </div><!-- /.container -->
 </header>
 <main>
 <div class="container">
 <section>
-    <form action="#" id="form">
-        <input type="text" name="word">
-        <input type="submit" value="検索">
-    </form>
-    
-    <p id="output"></p>
+    <p>最終アクセス日時：<span id="time"></span></p>
 </section>
 </div><!-- /.container -->
 </main>
@@ -35,11 +30,16 @@
 <script>
     
     'use strict';
-    document.getElementById('form').onsubmit = function(event){
-        event.preventDefault();
-        const search = document.getElementById('form').word.value;
-        document.getElementById('output').textContent = `「${search}」を検索中...`;
-    };
+    
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+    const date = now.getDate();
+    const hour = now.getHours();
+    const min = now.getMinutes();
+    
+    const output = `${year}/${month + 1}/${date} ${hour}:${min}`;
+    document.getElementById('time').textContent = output;
     
 </script>
 </body>
