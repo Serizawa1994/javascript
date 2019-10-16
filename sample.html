@@ -11,21 +11,19 @@
 <body>
 <header>
 <div class="container">
-<h1>アイテムの価格と在庫を表示する</h1>
-<h2>HTMLに出力する</h2>
+<h1>フォームの入力内容を取得する</h1>
+<h2>入力内容を読み取って出力</h2>
 </div><!-- /.container -->
 </header>
 <main>
 <div class="container">
 <section>
-    <table>
-        <tr>
-            <td id="title"></td>
-            <td id="price"></td>
-            <td id="stock"></td>
-        </tr>
-    </table>
+    <form action="#" id="form">
+        <input type="text" name="word">
+        <input type="submit" value="検索">
+    </form>
     
+    <p id="output"></p>
 </section>
 </div><!-- /.container -->
 </main>
@@ -37,12 +35,11 @@
 <script>
     
     'use strict';
-    
-    let jsbook = {title: 'Javascript入門', price: 2500, stock: 3};
-    
-    document.getElementById("title").textContent = jsbook.title;
-    document.getElementById("price").textContent = jsbook.price + "円";
-    document.getElementById("stock").textContent = jsbook.stock + "冊";
+    document.getElementById('form').onsubmit = function(event){
+        event.preventDefault();
+        const search = document.getElementById('form').word.value;
+        document.getElementById('output').textContent = `「${search}」を検索中...`;
+    };
     
 </script>
 </body>
