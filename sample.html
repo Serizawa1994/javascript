@@ -1,78 +1,61 @@
 <!doctype html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1">
-        <title>5-04_image</title>
-        <link href="images/favicon.ico" rel="shortcut icon">
-        <link href="https://fonts.googleapis.com/css?family=M+PLUS+1p:400,500" rel="stylesheet">
-        <link href="sample.css" rel="stylesheet">
-        <style>
-            .submenu h3 {
-                margin: 0 0 1em 0;
-                font-size: 16px;
-                cursor: pointer;
-                color: #5e78c1;
-            }
-            .submenu h3:hover {
-                color: #b04188;
-                text-decoration: underline;
-            }
-            .submenu ul {
-                margin: 0 0 1em 0;
-                list-style-type: none;
-                font-size: 14px;
-            }
-            .hidden {
-                display: none;
-            }
-        </style>
-    </head>
-    <body>
-        <header>
-            <div class="container">
-                <h1>開閉するナビゲーションメニュー</h1>
-                <h2>要素の取得とclass属性の追加・削除</h2>
-            </div><!-- /.container -->
-        </header>
-        <main>
-            <div class="container">
-                <section>
-                    <div class="submenu">
-                        <h3>1. 初めて使うとき</h3>
-                        <ul class="hidden">
-                            <li><a href="">- 概要</a></li>
-                            <li><a href="">- インストールする</a></li>
-                            <li><a href="">- アカウントを登録する</a></li>
-                            <li><a href="">- アンインストールする</a></li>
-                        </ul>
-                    </div>
-                    <div class="submenu">
-                        <h3>2. 基本的な使い方</h3>
-                        <ul class="hidden">
-                            <li><a href="">- 基本的な操作方法</a></li>
-                            <li><a href="">- 元の状態に復元する</a></li>
-                            <li><a href="">- 機能拡張プラグインを追加する</a></li>
-                        </ul>
-                    </div>
-                </section>
-            </div><!-- /.container -->
-        </main>
-        <footer>
-            <div class="container">
-                <p>JavaScript Samples</p>
-            </div><!-- /.container -->
-        </footer>
-        <script src="jquery-3.4.1.min.js"></script>
-        <script>
-            'use strict'
-            
-            $(document).ready(function(){
-                $('.submenu h3').on('click', function(){
-                    $(this).nerxt().toggleClass('hiddn');
-                });
-            });
-           
-        </script>
-    </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>7-01_geolocation</title>
+<link rel="shortcut icon" href="../../_common/images/favicon.ico">
+<link href="https://fonts.googleapis.com/css?family=M+PLUS+1p:400,500" rel="stylesheet">
+<link href="../../_common/css/style.css" rel="stylesheet">
+<style>
+main section {
+    text-align: center;
+}
+.position {
+    font-size: 1.5rem;
+    color: #ed8a29;
+}
+</style>
+</head>
+<body>
+<header>
+<div class="container">
+<h1>あなたはいまどこ？</h1>
+<h2>位置情報をページに表示する</h2>
+</div><!-- /.container -->
+</header>
+<main>
+<div class="container">
+<section>
+    <p>あなたはいま</p>
+    <p id="loc" class="position"></p>
+    <p>の場所にいます。ちなみに精度は半径 <span id="accuracy" class="position"></span> mです。</p>
+</section>
+</div><!-- /.container -->
+</main>
+<footer>
+<div class="container">
+<p>JavaScript Samples</p>
+</div><!-- /.container -->
+</footer>
+<script src="../../_common/scripts/jquery-3.4.1.min.js"></script>
+<script>
+'use strict';
+
+function success(pos) {
+    const lat = pos.coords.latitude;
+    const lng = pos.coords.longitude;
+    const accuracy = pos.coords.accuracy;
+
+    $('#loc').text(`緯度：${lat} 経度：${lng}`);
+    $('#accuracy').text(accuracy);
+}
+
+function fail(error) {
+    alert('位置情報の取得に失敗しました。エラーコード：' + error.code);
+}
+
+navigator.geolocation.getCurrentPosition(success, fail);
+</script>
+</body>
 </html>
