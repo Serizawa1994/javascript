@@ -1,61 +1,86 @@
 <!doctype html>
 <html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>7-01_geolocation</title>
-<link rel="shortcut icon" href="../../_common/images/favicon.ico">
-<link href="https://fonts.googleapis.com/css?family=M+PLUS+1p:400,500" rel="stylesheet">
-<link href="../../_common/css/style.css" rel="stylesheet">
-<style>
-main section {
-    text-align: center;
-}
-.position {
-    font-size: 1.5rem;
-    color: #ed8a29;
-}
-</style>
-</head>
-<body>
-<header>
-<div class="container">
-<h1>あなたはいまどこ？</h1>
-<h2>位置情報をページに表示する</h2>
-</div><!-- /.container -->
-</header>
-<main>
-<div class="container">
-<section>
-    <p>あなたはいま</p>
-    <p id="loc" class="position"></p>
-    <p>の場所にいます。ちなみに精度は半径 <span id="accuracy" class="position"></span> mです。</p>
-</section>
-</div><!-- /.container -->
-</main>
-<footer>
-<div class="container">
-<p>JavaScript Samples</p>
-</div><!-- /.container -->
-</footer>
-<script src="../../_common/scripts/jquery-3.4.1.min.js"></script>
-<script>
-'use strict';
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>6-02_drawer</title>
+        <link href="https://fonts.googleapis.com/css?family=M+PLUS+1p:400,500" rel="stylesheet">
+        <link href="sample.css" rel="stylesheet">
+        <link href="special.css" rel="stylesheet">
+    </head>
+    
+    <body>
+        <div id="wrapper">
+            <header>
+                <div class="container">
+                    <div class="title-block">
+                        <h1>ドロワーナビゲーション</h1>
+                        <h2>ヘッダーにボタンを設置する</h2>            
+                    </div>
+                    <div class="hamburger" id="open_nav">
+                        <img src="drawer_img/hamburger.png" alt="">
+                    </div>
+                </div><!-- /.container -->
+            </header>
+            <main>
+                <div class="container">
+                    <section>
+                        <div class="key">
+                            <img src="drawer_img/key.jpg" alt="">
+                        </div>
+                        <div class="content">
+                            <h1>ひとり旅でリフレッシュ</h1>
+                            <p>今月の特集は「ひとり旅」。<br>
+                            週末に行ける小さな旅行から人生を見つめる長旅まで、<br>
+                            充実のおひとり様プラン、紹介します。</p>
+                        </div>
+                        <div class="archive">
+                            <h3>特集アーカイブ</h3>
+                            <div class="archive-box">
+                                <figure>
+                                    <img src="drawer_img/thumb1.jpg" alt="">
+                                    <figcaption>レトロな街の、楽しみ方</figcaption>
+                                </figure>
+                                <figure>
+                                    <img src="drawer_img/thumb2.jpg" alt="">
+                                    <figcaption>建築物を巡る旅</figcaption>
+                                </figure>
+                            </div>
+                        </div>
+                    </section>
+                </div><!-- /.container -->
+            </main>
 
-function success(pos) {
-    const lat = pos.coords.latitude;
-    const lng = pos.coords.longitude;
-    const accuracy = pos.coords.accuracy;
+            <footer>
+                <div class="container">
+                    <p>JavaScript Samples</p>
+                </div><!-- /.container -->
+            </footer>
+        </div>
 
-    $('#loc').text(`緯度：${lat} 経度：${lng}`);
-    $('#accuracy').text(accuracy);
-}
-
-function fail(error) {
-    alert('位置情報の取得に失敗しました。エラーコード：' + error.code);
-}
-
-navigator.geolocation.getCurrentPosition(success, fail);
-</script>
-</body>
+        <nav id="nav">
+            <div class="logo"><img src="drawer_img/logo.svg" alt=""></div>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">今月の特集</a></li>
+                <li><a href="#">ホテル検索</a></li>
+                <li><a href="#">カフェ検索</a></li>
+                <li><a href="#">お問い合わせ</a></li>
+            </ul>
+        </nav>
+        
+        <script src="scripts/jquery-3.4.1.min.js"></script>
+        <script>
+            'use strict'
+            
+            $(document).ready(function(){
+               $('#open_nav').on('click',function(){
+                   $('#wrapper,#nav').toggleClass('show');
+               }); 
+            });
+            
+        </script>
+    </body>
+    
 </html>
