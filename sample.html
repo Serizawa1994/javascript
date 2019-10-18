@@ -1,86 +1,106 @@
 <!doctype html>
 <html>
-    
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <title>6-02_drawer</title>
+        <title>6-03_ajax</title>
+        <link href="images/favicon.ico" rel="shortcut icon">
         <link href="https://fonts.googleapis.com/css?family=M+PLUS+1p:400,500" rel="stylesheet">
         <link href="sample.css" rel="stylesheet">
-        <link href="special.css" rel="stylesheet">
+        <style>
+            .list {
+                overflow: hidden;
+                margin: 0;
+                padding: 0;
+                list-style-type: none;
+            }
+            .list h2 {
+                margin: 0 0 2em 0;
+                font-size: 16px;
+                text-align: center;
+            }
+            .seminar {
+                float: left;
+                margin: 10px 10px 10px 0;
+                border: 1px solid #23628f;
+                padding: 4px;
+                width: 25%;
+            }
+            .check {
+                margin: 0;
+                padding: 8px;
+                font-size: 12px;
+                color: #ffffff;
+                background-color: #23628f;
+                text-align: center;
+                cursor: pointer;
+            }
+            .red {
+                background-color: #e33a6d;
+            }
+            .green {
+                background-color: #7bc52e;
+            }
+        </style>
     </head>
-    
     <body>
-        <div id="wrapper">
-            <header>
-                <div class="container">
-                    <div class="title-block">
-                        <h1>ドロワーナビゲーション</h1>
-                        <h2>ヘッダーにボタンを設置する</h2>            
-                    </div>
-                    <div class="hamburger" id="open_nav">
-                        <img src="drawer_img/hamburger.png" alt="">
-                    </div>
-                </div><!-- /.container -->
-            </header>
-            <main>
-                <div class="container">
-                    <section>
-                        <div class="key">
-                            <img src="drawer_img/key.jpg" alt="">
-                        </div>
-                        <div class="content">
-                            <h1>ひとり旅でリフレッシュ</h1>
-                            <p>今月の特集は「ひとり旅」。<br>
-                            週末に行ける小さな旅行から人生を見つめる長旅まで、<br>
-                            充実のおひとり様プラン、紹介します。</p>
-                        </div>
-                        <div class="archive">
-                            <h3>特集アーカイブ</h3>
-                            <div class="archive-box">
-                                <figure>
-                                    <img src="drawer_img/thumb1.jpg" alt="">
-                                    <figcaption>レトロな街の、楽しみ方</figcaption>
-                                </figure>
-                                <figure>
-                                    <img src="drawer_img/thumb2.jpg" alt="">
-                                    <figcaption>建築物を巡る旅</figcaption>
-                                </figure>
-                            </div>
-                        </div>
-                    </section>
-                </div><!-- /.container -->
-            </main>
-
-            <footer>
-                <div class="container">
-                    <p>JavaScript Samples</p>
-                </div><!-- /.container -->
-            </footer>
-        </div>
-
-        <nav id="nav">
-            <div class="logo"><img src="drawer_img/logo.svg" alt=""></div>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">今月の特集</a></li>
-                <li><a href="#">ホテル検索</a></li>
-                <li><a href="#">カフェ検索</a></li>
-                <li><a href="#">お問い合わせ</a></li>
-            </ul>
-        </nav>
-        
+        <header>
+            <div class="container">
+            <h1>空き席状況をチェック</h1>
+            <h2>JSONファイルの読み込み</h2>
+            </div><!-- /.container -->
+        </header>
+        <main>
+            <div class="container">
+                <section>
+                    <ul class="list">
+                        <li class="seminar" id="js">
+                            <h2>JavaScript勉強会</h2>
+                            <p class="check">空き席状況を確認</p>
+                        </li>
+                        <li class="seminar" id="security">
+                            <h2>セキュリティ対策講座</h2>
+                            <p class="check">空き席状況を確認</p>
+                        </li>
+                        <li class="seminar" id="aiux">
+                            <h2>AIを利用したUX設計</h2>
+                            <p class="check">空き席状況を確認</p>
+                        </li>
+                    </ul>
+                </section>
+            </div><!-- /.container -->
+        </main>
+        <footer>
+            <div class="container">
+                <p>JavaScript Samples</p>
+            </div><!-- /.container -->
+        </footer>
         <script src="scripts/jquery-3.4.1.min.js"></script>
         <script>
-            'use strict'
-            
+            'use strict';
             $(document).ready(function(){
-               $('#open_nav').on('click',function(){
-                   $('#wrapper,#nav').toggleClass('show');
-               }); 
-            });
+                $.ajax({url: 'data.json', dataType: 'json'})
+                .done(function(data){
+                    data.forEach(function(item,index){
+                        if(item.crowded === 'yes'){
+                            const idName = '#' + item.id;
+                            $(idName).find('.check').addClass('crowded');
+                        }
+                    });
+                })
+                
+                .fail(function(){
+                    window.alert('読み込みエラー');
+                });
             
+                $('.check').on('click',function(){
+                    if($(this).hasClass('crowded')){
+                        $(this).text('残席わずか').addCalss('red');
+                    }else{
+                        $(this).text('お席あります').addClass('green');
+                    }
+                })    
+            });
         </script>
     </body>
-    
 </html>
